@@ -1,0 +1,50 @@
+name: Verify Docs (Reusable)
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-docs:
+    name: Verify Docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Setup Go
+        uses: actions/setup-go@7a3fe6cf4cb3a834922a1244abfce67bcef6a0c5 # v6.2.0
+        with:
+          go-version: '1.25.4'
+          cache: false
+
+      - name: Cache Go modules and build cache
+        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5.0.3
+        with:
+          path: |
+            ~/go/pkg/mod
+            !~/go/pkg/mod/golang.org/toolchain*
+            ~/.cache/go-build
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3
+        with:
+          terraform_version: 1.3.3
+
+      - name: Verify docs are up-to-date
+        run: |
+          # re-generate the docs
+          make generate
+          # if any diffs then fail the build
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "ERROR: docs are not up-to-date, failing build" && exit 1;
+          else
+            echo "INFO: docs are up-to-date"
+          fi

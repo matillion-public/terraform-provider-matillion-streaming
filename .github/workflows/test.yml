@@ -1,0 +1,34 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions: {}
+
+jobs:
+  verify-docs:
+    name: Verify Docs
+    permissions:
+      contents: read
+    uses: ./.github/workflows/verify-docs.yml
+
+  acceptance-tests:
+    name: Acceptance Tests - ${{ matrix.region }}
+    permissions:
+      contents: read
+    needs: verify-docs
+    strategy:
+      matrix:
+        region: [us, eu]
+      fail-fast: false
+    uses: ./.github/workflows/acceptance-tests.yml
+    with:
+      region: ${{ matrix.region }}
+    secrets:
+      MATILLION_ACCOUNT_ID: ${{ matrix.region == 'us' && secrets.MATILLION_ACCOUNT_ID_US || secrets.MATILLION_ACCOUNT_ID_EU }}
+      MATILLION_PROJECT_ID: ${{ matrix.region == 'us' && secrets.MATILLION_PROJECT_ID_US || secrets.MATILLION_PROJECT_ID_EU }}
+      MATILLION_CLIENT_ID: ${{ matrix.region == 'us' && secrets.MATILLION_CLIENT_ID_US || secrets.MATILLION_CLIENT_ID_EU }}
+      MATILLION_CLIENT_SECRET: ${{ matrix.region == 'us' && secrets.MATILLION_CLIENT_SECRET_US || secrets.MATILLION_CLIENT_SECRET_EU }}
