@@ -32,3 +32,4 @@ jobs:
       MATILLION_PROJECT_ID: ${{ matrix.region == 'us' && secrets.MATILLION_PROJECT_ID_US || secrets.MATILLION_PROJECT_ID_EU }}
       MATILLION_CLIENT_ID: ${{ matrix.region == 'us' && secrets.MATILLION_CLIENT_ID_US || secrets.MATILLION_CLIENT_ID_EU }}
       MATILLION_CLIENT_SECRET: ${{ matrix.region == 'us' && secrets.MATILLION_CLIENT_SECRET_US || secrets.MATILLION_CLIENT_SECRET_EU }}
+      MATILLION_AGENT_ID: ${{ secrets.MATILLION_AGENT_ID }}

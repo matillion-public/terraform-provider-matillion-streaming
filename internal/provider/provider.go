@@ -99,6 +99,7 @@ func (p MatillionStreamingProvider) DataSources(ctx context.Context) []func() da
 func (p MatillionStreamingProvider) Resources(ctx context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
 		NewAgentDefinitionResource,
+		NewPipelineResource,
 	}
 }
 
