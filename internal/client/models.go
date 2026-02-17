@@ -10,6 +10,12 @@ type Agent struct {
 	AgentType     string `json:"agentType"`
 }
 
+// AgentCredentials represents the credentials for an agent
+type AgentCredentials struct {
+	ClientId     string `json:"clientId"`
+	ClientSecret string `json:"clientSecret"`
+}
+
 // Pipeline represents a pipeline in the streaming platform
 type Pipeline struct {
 	StreamingPipelineId string                 `json:"streamingPipelineId"`

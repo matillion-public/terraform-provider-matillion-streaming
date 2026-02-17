@@ -127,3 +127,16 @@ func (s *AgentService) Delete(agentId string) error {
 	_, err := s.client.doRequest("DELETE", agentUrl, nil, StatusAccepted, nil)
 	return err
 }
+
+// GetCredentials retrieves the credentials for an agent
+func (s *AgentService) GetCredentials(agentId string) (AgentCredentials, error) {
+	agentUrl := fmt.Sprintf("%s/agents/%s/credentials", s.client.apiURL, agentId)
+
+	var credentials AgentCredentials
+	_, err := s.client.doRequest("GET", agentUrl, nil, StatusOK, &credentials)
+	if err != nil {
+		return AgentCredentials{}, err
+	}
+
+	return credentials, nil
+}
