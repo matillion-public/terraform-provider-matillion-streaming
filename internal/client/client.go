@@ -64,7 +64,8 @@ type Client struct {
 	region     Region
 	apiURL     string
 
-	Agents *AgentService
+	Agents    *AgentService
+	Pipelines *PipelineService
 }
 
 func NewClient(accountId string, region Region) (*Client, error) {
@@ -99,6 +100,7 @@ func NewClient(accountId string, region Region) (*Client, error) {
 	}
 
 	client.Agents = &AgentService{client: client}
+	client.Pipelines = &PipelineService{client: client}
 	return client, nil
 }
 

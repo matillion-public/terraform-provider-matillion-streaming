@@ -16,6 +16,8 @@ on:
         required: true
       MATILLION_PROJECT_ID:
         required: true
+      MATILLION_AGENT_ID:
+        required: true
 
 permissions:
   contents: read
@@ -29,6 +31,7 @@ jobs:
       MATILLION_CLIENT_ID: ${{ secrets.MATILLION_CLIENT_ID }}
       MATILLION_CLIENT_SECRET: ${{ secrets.MATILLION_CLIENT_SECRET }}
       MATILLION_PROJECT_ID: ${{ secrets.MATILLION_PROJECT_ID }}
+      MATILLION_AGENT_ID: ${{ secrets.MATILLION_AGENT_ID }}
       MATILLION_REGION: ${{ inputs.region }}
     steps:
       - name: Checkout

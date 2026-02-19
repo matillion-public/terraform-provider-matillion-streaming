@@ -50,6 +50,30 @@ func testAccGetRegion() string {
 	return "us"
 }
 
+func testAccGetAccountID(t *testing.T) string {
+	accountID := os.Getenv("MATILLION_ACCOUNT_ID")
+	if accountID == "" {
+		t.Skip("MATILLION_ACCOUNT_ID must be set for acceptance tests")
+	}
+	return accountID
+}
+
+func testAccGetProjectID(t *testing.T) string {
+	projectID := os.Getenv("MATILLION_PROJECT_ID")
+	if projectID == "" {
+		t.Skip("MATILLION_PROJECT_ID must be set for acceptance tests")
+	}
+	return projectID
+}
+
+func testAccGetAgentID(t *testing.T) string {
+	agentID := os.Getenv("MATILLION_AGENT_ID")
+	if agentID == "" {
+		t.Skip("MATILLION_AGENT_ID must be set for acceptance tests")
+	}
+	return agentID
+}
+
 // sharedClientForRegion returns a client configured for the sweeper tests
 // The region parameter is ignored, but kept for compatibility with the sweeper interface
 func sharedClientForRegion(_ string) (*client.Client, error) {
