@@ -93,7 +93,9 @@ func (p MatillionStreamingProvider) Configure(ctx context.Context, req provider.
 }
 
 func (p MatillionStreamingProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
-	return []func() datasource.DataSource{}
+	return []func() datasource.DataSource{
+		NewAgentCredentialsDataSource,
+	}
 }
 
 func (p MatillionStreamingProvider) Resources(ctx context.Context) []func() resource.Resource {
