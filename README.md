@@ -1,13 +1,13 @@
 # Terraform Provider for Matillion Streaming
 
-[![Terraform Registry](https://img.shields.io/badge/terraform-registry-623CE4?logo=terraform)](https://registry.terraform.io/providers/matillion/matillion-streaming/latest)
+[![Terraform Registry](https://img.shields.io/badge/terraform-registry-623CE4?logo=terraform)](https://registry.terraform.io/providers/matillion-public/matillion-streaming/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Go Version](https://img.shields.io/badge/go-1.25-00ADD8?logo=go)](go.mod)
 
 The Matillion Streaming Terraform provider lets you manage [Matillion Streaming](https://docs.matillion.com/data-productivity-cloud/streaming/docs/streaming-pipelines/) resources as infrastructure-as-code.
 You can declaratively create and manage streaming agents and pipelines that capture data from a source database and write it to either cloud storage or a cloud data warehouse.
 
-Full documentation is available on the [Terraform Registry](https://registry.terraform.io/providers/matillion/matillion-streaming/latest/docs).
+Full documentation is available on the [Terraform Registry](https://registry.terraform.io/providers/matillion-public/matillion-streaming/latest/docs).
 
 
 
@@ -27,7 +27,7 @@ Add the provider to your Terraform configuration:
 terraform {
   required_providers {
     matillion-streaming = {
-      source  = "matillion/matillion-streaming"
+      source  = "matillion-public/matillion-streaming"
       version = "~> 1.0"
     }
   }
@@ -58,9 +58,9 @@ You can see how to obtain these credentials from the [Matillion Docs](https://do
 
 | Type | Name | Description |
 |------|------|-------------|
-| Resource | [`matillion-streaming_agent`](https://registry.terraform.io/providers/matillion/matillion-streaming/latest/docs/resources/agent) | Manages a streaming agent in DPC |
-| Resource | [`matillion-streaming_pipeline`](https://registry.terraform.io/providers/matillion/matillion-streaming/latest/docs/resources/pipeline) | Manages a streaming pipeline between a source and target |
-| Data Source | [`matillion-streaming_agent_credentials`](https://registry.terraform.io/providers/matillion/matillion-streaming/latest/docs/data-sources/agent_credentials) | Retrieves the client credentials for a streaming agent |
+| Resource | [`matillion-streaming_agent`](https://registry.terraform.io/providers/matillion-public/matillion-streaming/latest/docs/resources/agent) | Manages a streaming agent in DPC |
+| Resource | [`matillion-streaming_pipeline`](https://registry.terraform.io/providers/matillion-public/matillion-streaming/latest/docs/resources/pipeline) | Manages a streaming pipeline between a source and target |
+| Data Source | [`matillion-streaming_agent_credentials`](https://registry.terraform.io/providers/matillion-public/matillion-streaming/latest/docs/data-sources/agent_credentials) | Retrieves the client credentials for a streaming agent |
 
 ### Supported Sources
 

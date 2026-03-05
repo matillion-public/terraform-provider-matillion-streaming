@@ -25,7 +25,7 @@ func main() {
 	flag.Parse()
 
 	opts := providerserver.ServeOpts{
-		Address: "registry.terraform.io/matillion/matillion-streaming",
+		Address: "registry.terraform.io/matillion-public/matillion-streaming",
 		Debug:   debug,
 	}
 

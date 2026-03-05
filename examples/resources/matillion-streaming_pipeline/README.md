@@ -100,4 +100,4 @@ tables = [
 
 ## More Information
 
-For complete schema documentation, see the [Terraform Registry documentation](https://registry.terraform.io/providers/matillion/matillion-streaming/latest/docs/resources/pipeline).
+For complete schema documentation, see the [Terraform Registry documentation](https://registry.terraform.io/providers/matillion-public/matillion-streaming/latest/docs/resources/pipeline).
