@@ -15,7 +15,7 @@ description: |-
 terraform {
   required_providers {
     matillion-streaming = {
-      source = "matillion/matillion-streaming"
+      source = "matillion-public/matillion-streaming"
     }
   }
 }
