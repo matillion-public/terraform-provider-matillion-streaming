@@ -1,0 +1,46 @@
+---
+page_title: "{{.Name}} {{.Type}} - {{.ProviderName}}"
+subcategory: ""
+description: |-
+  {{ .Description | plainmarkdown | trimspace | prefixlines "  " }}
+---
+
+# {{.Name}} ({{.Type}})
+
+{{ .Description | trimspace }}
+
+## Example Usage
+
+### PostgreSQL to Snowflake
+
+{{codefile "terraform" "examples/resources/matillion-streaming_pipeline/resource.tf"}}
+
+### PostgreSQL to S3
+
+{{codefile "terraform" "examples/resources/matillion-streaming_pipeline/postgres_to_s3.tf"}}
+
+### MySQL to Snowflake
+
+{{codefile "terraform" "examples/resources/matillion-streaming_pipeline/mysql_to_snowflake.tf"}}
+
+### SQL Server to Snowflake
+
+{{codefile "terraform" "examples/resources/matillion-streaming_pipeline/sqlserver_to_snowflake.tf"}}
+
+### Oracle to Azure Blob Storage
+
+{{codefile "terraform" "examples/resources/matillion-streaming_pipeline/oracle_to_abs.tf"}}
+
+### DB2 for IBM i to S3
+
+{{codefile "terraform" "examples/resources/matillion-streaming_pipeline/db2_to_s3.tf"}}
+
+{{ .SchemaMarkdown | trimspace }}
+
+## Import
+
+Import is supported using the following syntax:
+
+The [`terraform import` command](https://developer.hashicorp.com/terraform/cli/commands/import) can be used, for example:
+
+{{codefile "shell" "examples/resources/matillion-streaming_pipeline/import.sh"}}
