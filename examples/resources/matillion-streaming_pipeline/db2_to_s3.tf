@@ -8,7 +8,7 @@ resource "matillion-streaming_pipeline" "db2_to_s3" {
   db2_ibm_i_source = {
     connection = {
       host     = "as400.example.com"
-      port     = 446
+      port     = 8471
       username = "STREAMING"
       password = {
         type = "aws_secrets_manager"
