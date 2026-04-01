@@ -28,7 +28,6 @@ const (
 )
 
 type RegionConfig struct {
-	Region      Region
 	AudienceURL string
 	ApiURL      string
 	TokenURL    string
@@ -36,14 +35,12 @@ type RegionConfig struct {
 
 var (
 	EUConfig = RegionConfig{
-		Region:      RegionEU,
 		AudienceURL: "https://api.matillion.com",
 		ApiURL:      "https://eu1.api.matillion.com/dpc/v1",
 		TokenURL:    "https://id.core.matillion.com/oauth/dpc/token",
 	}
 
 	USConfig = RegionConfig{
-		Region:      RegionUS,
 		AudienceURL: "https://api.matillion.com",
 		ApiURL:      "https://us1.api.matillion.com/dpc/v1",
 		TokenURL:    "https://id.core.matillion.com/oauth/dpc/token",
@@ -51,17 +48,29 @@ var (
 )
 
 func GetRegionConfig(region Region) RegionConfig {
+	var config RegionConfig
 	if region == RegionEU {
-		return EUConfig
+		config = EUConfig
 	} else {
-		return USConfig
+		config = USConfig
 	}
+
+	audienceURL := os.Getenv("MATILLION_AUDIENCE_URL")
+	apiURL := os.Getenv("MATILLION_API_URL")
+	tokenURL := os.Getenv("MATILLION_TOKEN_URL")
+
+	if audienceURL != "" && apiURL != "" && tokenURL != "" {
+		config.AudienceURL = audienceURL
+		config.ApiURL = apiURL
+		config.TokenURL = tokenURL
+	}
+
+	return config
 }
 
 type Client struct {
 	accountId  string
 	httpClient *http.Client
-	region     Region
 	apiURL     string
 
 	Agents    *AgentService
@@ -95,7 +104,6 @@ func NewClient(accountId string, region Region) (*Client, error) {
 	client := &Client{
 		accountId:  accountId,
 		httpClient: httpClient,
-		region:     region,
 		apiURL:     config.ApiURL,
 	}
 
