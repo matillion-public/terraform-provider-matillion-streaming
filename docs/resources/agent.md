@@ -31,7 +31,7 @@ output "agent_id" {
 
 ### Required
 
-- `cloud_provider` (String) The cloud provider for the agent. Supported values: aws, azure, gcp. This value cannot be changed after creation.
+- `cloud_provider` (String) The cloud provider for the agent. Supported values: aws, azure, google_cloud. This value cannot be changed after creation.
 - `deployment` (String) The deployment type for the agent. Supported values: fargate, eks, aci, aks, gke, gce. This value cannot be changed after creation.
 - `name` (String) The name of the agent (1 - 30 characters).
 

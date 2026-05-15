@@ -80,12 +80,12 @@ func (r *agentDefinitionResource) Schema(_ context.Context, _ resource.SchemaReq
 			},
 			"cloud_provider": schema.StringAttribute{
 				Required:            true,
-				MarkdownDescription: "The cloud provider for the agent. Supported values: aws, azure, gcp. This value cannot be changed after creation.",
+				MarkdownDescription: "The cloud provider for the agent. Supported values: aws, azure, google_cloud. This value cannot be changed after creation.",
 				Validators: []validator.String{
 					stringvalidator.OneOf(
 						"aws",
 						"azure",
-						"gcp",
+						"google_cloud",
 					),
 				},
 				PlanModifiers: []planmodifier.String{

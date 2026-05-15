@@ -155,7 +155,7 @@ func TestAccAgentDefinitionResource_gcp(t *testing.T) {
 					resource.TestCheckResourceAttr("matillion-streaming_agent.test_gcp", "name", resourceName),
 					resource.TestCheckResourceAttr("matillion-streaming_agent.test_gcp", "description", "Test streaming agent for GCP"),
 					resource.TestCheckResourceAttr("matillion-streaming_agent.test_gcp", "deployment", "gke"),
-					resource.TestCheckResourceAttr("matillion-streaming_agent.test_gcp", "cloud_provider", "gcp"),
+					resource.TestCheckResourceAttr("matillion-streaming_agent.test_gcp", "cloud_provider", "google_cloud"),
 					resource.TestCheckResourceAttrSet("matillion-streaming_agent.test_gcp", "agent_id"),
 				),
 			},
@@ -245,7 +245,7 @@ resource "matillion-streaming_agent" "test_gcp" {
   name           = "%s"
   description    = "Test streaming agent for GCP"
   deployment     = "gke"
-  cloud_provider = "gcp"
+  cloud_provider = "google_cloud"
 }
 `, accountId, testAccGetRegion(), resourceName)
 }
