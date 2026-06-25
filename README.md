@@ -35,7 +35,7 @@ terraform {
 
 provider "matillion-streaming" {
   account_id = "your-account-id"
-  region     = "eu" # or "us"
+  region     = "eu"
 }
 ```
 

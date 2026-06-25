@@ -10,7 +10,7 @@ provider "matillion-streaming" {
   # Account ID for your Matillion Data Productivity Cloud account
   account_id = "your-account-id"
 
-  # Region where your account is hosted (either "eu" or "us")
+  # Region where your account is hosted
   region = "eu"
 
   # Authentication credentials are provided via environment variables:

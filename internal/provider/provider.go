@@ -2,6 +2,8 @@ package provider
 
 import (
 	"context"
+	"terraform-provider-matillion-streaming/internal/client"
+
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/provider"
@@ -10,7 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
-	"terraform-provider-matillion-streaming/internal/client"
 )
 
 // MatillionStreamingProvider defines the provider implementation.
@@ -35,16 +36,17 @@ func (p MatillionStreamingProvider) Schema(_ context.Context, _ provider.SchemaR
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
 			"account_id": schema.StringAttribute{
-				Required: true,
+				Required:            true,
+				MarkdownDescription: "Account ID to use.",
 				Validators: []validator.String{
 					stringvalidator.LengthAtLeast(1),
 				},
 			},
 			"region": schema.StringAttribute{
 				Required:            true,
-				MarkdownDescription: "Region to use (eu or us).",
+				MarkdownDescription: "Region to use.",
 				Validators: []validator.String{
-					stringvalidator.OneOf("eu", "us"),
+					stringvalidator.OneOf("eu", "us", "au"),
 				},
 			},
 		},
@@ -68,9 +70,12 @@ func (p MatillionStreamingProvider) Configure(ctx context.Context, req provider.
 	var region client.Region
 	regionStr := config.Region.ValueString()
 
-	if regionStr == "eu" {
+	switch regionStr {
+	case "eu":
 		region = client.RegionEU
-	} else { // regionStr == "us" (validated by OneOf)
+	case "au":
+		region = client.RegionAU
+	default: // "us"
 		region = client.RegionUS
 	}
 

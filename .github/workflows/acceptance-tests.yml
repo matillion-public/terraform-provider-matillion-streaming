@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       region:
-        description: 'Region to run tests against (us or eu)'
+        description: 'Region to run tests against'
         required: true
         type: string
     secrets:
