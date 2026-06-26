@@ -1,0 +1,122 @@
+# Snyk (https://snyk.io) policy file
+version: v1.25.0
+
+# License exceptions for MPL-2.0 dependencies.
+#
+# All flagged packages are part of the HashiCorp Terraform plugin ecosystem.
+# Building a Terraform provider requires these libraries; they cannot be
+# substituted with non-MPL alternatives.
+#
+# MPL-2.0 copyleft applies only to modifications of the licensed files
+# themselves. Consuming these packages as unmodified library dependencies
+# does not require this project's source to be disclosed under MPL-2.0.
+ignore:
+  snyk:lic:golang:github.com:hashicorp:terraform-plugin-framework:MPL-2.0:
+    - '*':
+        reason: Required HashiCorp Terraform provider SDK; consumed unmodified as a library dependency.
+        expires: '2028-06-26T00:00:00.000Z'
+  snyk:lic:golang:github.com:hashicorp:terraform-plugin-framework-validators:MPL-2.0:
+    - '*':
+        reason: Required HashiCorp Terraform provider SDK; consumed unmodified as a library dependency.
+        expires: '2028-06-26T00:00:00.000Z'
+  snyk:lic:golang:github.com:hashicorp:terraform-plugin-go:MPL-2.0:
+    - '*':
+        reason: Required HashiCorp Terraform provider SDK; consumed unmodified as a library dependency.
+        expires: '2028-06-26T00:00:00.000Z'
+  snyk:lic:golang:github.com:hashicorp:terraform-plugin-log:MPL-2.0:
+    - '*':
+        reason: Required HashiCorp Terraform provider SDK; consumed unmodified as a library dependency.
+        expires: '2028-06-26T00:00:00.000Z'
+  snyk:lic:golang:github.com:hashicorp:terraform-plugin-testing:MPL-2.0:
+    - '*':
+        reason: Required HashiCorp Terraform provider SDK; consumed unmodified as a library dependency.
+        expires: '2028-06-26T00:00:00.000Z'
+  snyk:lic:golang:github.com:hashicorp:terraform-plugin-sdk:v2:MPL-2.0:
+    - '*':
+        reason: Transitive dependency of HashiCorp Terraform provider SDK; consumed unmodified.
+        expires: '2028-06-26T00:00:00.000Z'
+  snyk:lic:golang:github.com:hashicorp:go-plugin:MPL-2.0:
+    - '*':
+        reason: Transitive dependency of HashiCorp Terraform provider SDK; consumed unmodified.
+        expires: '2028-06-26T00:00:00.000Z'
+  snyk:lic:golang:github.com:hashicorp:go-cty:MPL-2.0:
+    - '*':
+        reason: Transitive dependency of HashiCorp Terraform provider SDK; consumed unmodified.
+        expires: '2028-06-26T00:00:00.000Z'
+  snyk:lic:golang:github.com:hashicorp:go-hclog:MPL-2.0:
+    - '*':
+        reason: Transitive dependency of HashiCorp Terraform provider SDK; consumed unmodified.
+        expires: '2028-06-26T00:00:00.000Z'
+  snyk:lic:golang:github.com:hashicorp:go-checkpoint:MPL-2.0:
+    - '*':
+        reason: Transitive dependency of HashiCorp Terraform provider SDK; consumed unmodified.
+        expires: '2028-06-26T00:00:00.000Z'
+  snyk:lic:golang:github.com:hashicorp:go-cleanhttp:MPL-2.0:
+    - '*':
+        reason: Transitive dependency of HashiCorp Terraform provider SDK; consumed unmodified.
+        expires: '2028-06-26T00:00:00.000Z'
+  snyk:lic:golang:github.com:hashicorp:go-multierror:MPL-2.0:
+    - '*':
+        reason: Transitive dependency of HashiCorp Terraform provider SDK; consumed unmodified.
+        expires: '2028-06-26T00:00:00.000Z'
+  snyk:lic:golang:github.com:hashicorp:go-retryablehttp:MPL-2.0:
+    - '*':
+        reason: Transitive dependency of HashiCorp Terraform provider SDK; consumed unmodified.
+        expires: '2028-06-26T00:00:00.000Z'
+  snyk:lic:golang:github.com:hashicorp:go-uuid:MPL-2.0:
+    - '*':
+        reason: Transitive dependency of HashiCorp Terraform provider SDK; consumed unmodified.
+        expires: '2028-06-26T00:00:00.000Z'
+  snyk:lic:golang:github.com:hashicorp:go-version:MPL-2.0:
+    - '*':
+        reason: Transitive dependency of HashiCorp Terraform provider SDK; consumed unmodified.
+        expires: '2028-06-26T00:00:00.000Z'
+  snyk:lic:golang:github.com:hashicorp:errwrap:MPL-2.0:
+    - '*':
+        reason: Transitive dependency of HashiCorp Terraform provider SDK; consumed unmodified.
+        expires: '2028-06-26T00:00:00.000Z'
+  snyk:lic:golang:github.com:hashicorp:hc-install:MPL-2.0:
+    - '*':
+        reason: Transitive dependency of HashiCorp Terraform provider SDK; consumed unmodified.
+        expires: '2028-06-26T00:00:00.000Z'
+  snyk:lic:golang:github.com:hashicorp:hcl:v2:MPL-2.0:
+    - '*':
+        reason: Transitive dependency of HashiCorp Terraform provider SDK; consumed unmodified.
+        expires: '2028-06-26T00:00:00.000Z'
+  snyk:lic:golang:github.com:hashicorp:logutils:MPL-2.0:
+    - '*':
+        reason: Transitive dependency of HashiCorp Terraform provider SDK; consumed unmodified.
+        expires: '2028-06-26T00:00:00.000Z'
+  snyk:lic:golang:github.com:hashicorp:terraform-exec:MPL-2.0:
+    - '*':
+        reason: Transitive dependency of HashiCorp Terraform provider SDK; consumed unmodified.
+        expires: '2028-06-26T00:00:00.000Z'
+  snyk:lic:golang:github.com:hashicorp:terraform-json:MPL-2.0:
+    - '*':
+        reason: Transitive dependency of HashiCorp Terraform provider SDK; consumed unmodified.
+        expires: '2028-06-26T00:00:00.000Z'
+  snyk:lic:golang:github.com:hashicorp:terraform-registry-address:MPL-2.0:
+    - '*':
+        reason: Transitive dependency of HashiCorp Terraform provider SDK; consumed unmodified.
+        expires: '2028-06-26T00:00:00.000Z'
+  snyk:lic:golang:github.com:hashicorp:terraform-svchost:MPL-2.0:
+    - '*':
+        reason: Transitive dependency of HashiCorp Terraform provider SDK; consumed unmodified.
+        expires: '2028-06-26T00:00:00.000Z'
+  snyk:lic:golang:github.com:hashicorp:yamux:MPL-2.0:
+    - '*':
+        reason: Transitive dependency of HashiCorp Terraform provider SDK; consumed unmodified.
+        expires: '2028-06-26T00:00:00.000Z'
+  # Security vulnerabilities with no upstream fix available
+  SNYK-GOLANG-GITHUBCOMVMIHAILENCOMSGPACKV5-15702238:
+    - '*':
+        reason: >
+          Indirect dependency via hashicorp/terraform-plugin-go > tftypes > msgpack/v5.
+          v5.4.1 is the latest release; no patched version exists. Revisit when upstream publishes a fix.
+        expires: '2026-12-26T00:00:00.000Z'
+  # GitHub Actions
+  snyk:lic:github-actions:hashicorp:setup-terraform:MPL-2.0:
+    - '*':
+        reason: Required CI action for Terraform provider doc generation; consumed unmodified as a CI tool.
+        expires: '2028-06-26T00:00:00.000Z'
+patch: {}
