@@ -97,10 +97,12 @@ func sharedClientForRegion(_ string) (*client.Client, error) {
 	switch regionStr {
 	case "eu":
 		region = client.RegionEU
+	case "au":
+		region = client.RegionAU
 	case "us":
 		region = client.RegionUS
 	default:
-		return nil, fmt.Errorf("invalid region %s, must be eu or us", regionStr)
+		return nil, fmt.Errorf("invalid region %s, must be eu, us or au", regionStr)
 	}
 
 	c, err := client.NewClient(accountID, region)

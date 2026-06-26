@@ -25,6 +25,7 @@ type Region string
 const (
 	RegionEU Region = "eu"
 	RegionUS Region = "us"
+	RegionAU Region = "au"
 )
 
 type RegionConfig struct {
@@ -45,13 +46,22 @@ var (
 		ApiURL:      "https://us1.api.matillion.com/dpc/v1",
 		TokenURL:    "https://id.core.matillion.com/oauth/dpc/token",
 	}
+
+	AUConfig = RegionConfig{
+		AudienceURL: "https://api.matillion.com",
+		ApiURL:      "https://au1.api.matillion.com/dpc/v1",
+		TokenURL:    "https://id.core.matillion.com/oauth/dpc/token",
+	}
 )
 
 func GetRegionConfig(region Region) RegionConfig {
 	var config RegionConfig
-	if region == RegionEU {
+	switch region {
+	case RegionEU:
 		config = EUConfig
-	} else {
+	case RegionAU:
+		config = AUConfig
+	default:
 		config = USConfig
 	}
 
