@@ -22,6 +22,9 @@ Oracle to Azure Blob Storage pipeline - shows Oracle PDB configuration
 ### [db2_to_s3.tf](./db2_to_s3.tf)
 DB2 for IBM i to S3 pipeline - demonstrates DB2 configuration (no database field) and advanced properties.
 
+### [mysql_to_gcs.tf](./mysql_to_gcs.tf)
+MySQL to Google Cloud Storage pipeline - simple example showing streaming data to GCS.
+
 ## Prerequisites
 
 Before using these examples, ensure you have:
@@ -43,6 +46,7 @@ Before using these examples, ensure you have:
 - Snowflake
 - Amazon S3
 - Azure Blob Storage (ABS)
+- Google Cloud Storage (GCS)
 
 ## Key Configuration Notes
 

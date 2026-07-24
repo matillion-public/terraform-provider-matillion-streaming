@@ -32,3 +32,10 @@ type AbsTargetModel struct {
 	AccountKey     SecretReferenceModel `tfsdk:"account_key"`
 	DecimalMapping types.String         `tfsdk:"decimal_mapping"`
 }
+
+// GcsTargetModel represents a Google Cloud Storage target configuration in the provider schema
+type GcsTargetModel struct {
+	Bucket         types.String `tfsdk:"bucket"`
+	Prefix         types.String `tfsdk:"prefix"`
+	DecimalMapping types.String `tfsdk:"decimal_mapping"`
+}

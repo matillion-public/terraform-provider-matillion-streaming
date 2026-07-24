@@ -42,6 +42,7 @@ func PipelineSchema() schema.Schema {
 			"snowflake_target":  SnowflakeTargetSchema(),
 			"s3_target":         S3TargetSchema(),
 			"abs_target":        ABSTargetSchema(),
+			"gcs_target":        GcsTargetSchema(),
 			"advanced_properties": schema.MapAttribute{
 				MarkdownDescription: "Advanced configuration properties for the streaming pipeline",
 				Optional:            true,

@@ -60,6 +60,7 @@ func (r *pipelineResource) ConfigValidators(_ context.Context) []resource.Config
 			path.MatchRoot("snowflake_target"),
 			path.MatchRoot("s3_target"),
 			path.MatchRoot("abs_target"),
+			path.MatchRoot("gcs_target"),
 		),
 		resourcevalidator.ExactlyOneOf(
 			path.MatchRoot("postgres_source"),
