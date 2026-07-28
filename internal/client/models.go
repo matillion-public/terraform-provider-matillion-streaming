@@ -181,3 +181,11 @@ type AbsTargetModel struct {
 	AccountKey     PipelineSecretReference `json:"accountKey"`
 	DecimalMapping string                  `json:"decimalMapping,omitempty"`
 }
+
+// GcsTargetModel represents a Google Cloud Storage target configuration
+type GcsTargetModel struct {
+	Target
+	Bucket         string `json:"bucket"`
+	Prefix         string `json:"prefix"`
+	DecimalMapping string `json:"decimalMapping,omitempty"`
+}

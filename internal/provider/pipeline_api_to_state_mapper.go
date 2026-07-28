@@ -87,6 +87,7 @@ func mapTargetFromAPI(targetData map[string]interface{}, state *models.PipelineR
 	state.SnowflakeTarget = nil
 	state.S3Target = nil
 	state.ABSTarget = nil
+	state.GcsTarget = nil
 
 	switch targetType {
 	case "snowflake":
@@ -214,6 +215,28 @@ func mapTargetFromAPI(targetData map[string]interface{}, state *models.PipelineR
 			if key, ok := getStringField(accountKeyData, "key"); ok {
 				state.ABSTarget.AccountKey.Key = types.StringValue(key)
 			}
+		}
+
+	case "gcs":
+		state.GcsTarget = &models.GcsTargetModel{}
+
+		// Map bucket (required)
+		if bucket, ok := getStringField(targetData, "bucket"); ok {
+			state.GcsTarget.Bucket = types.StringValue(bucket)
+		}
+
+		// Map prefix (optional) - set to null if empty
+		if prefix, ok := getStringField(targetData, "prefix"); ok && prefix != "" {
+			state.GcsTarget.Prefix = types.StringValue(prefix)
+		} else {
+			state.GcsTarget.Prefix = types.StringNull()
+		}
+
+		// Handle decimal mapping with case conversion
+		if decimalMapping, ok := getStringField(targetData, "decimalMapping"); ok {
+			state.GcsTarget.DecimalMapping = types.StringValue(strings.ToLower(decimalMapping))
+		} else {
+			state.GcsTarget.DecimalMapping = types.StringNull()
 		}
 
 	default:

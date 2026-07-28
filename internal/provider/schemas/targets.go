@@ -161,3 +161,28 @@ func ABSTargetSchema() schema.SingleNestedAttribute {
 		},
 	}
 }
+
+// GcsTargetSchema returns the complete Google Cloud Storage target schema
+func GcsTargetSchema() schema.SingleNestedAttribute {
+	return schema.SingleNestedAttribute{
+		MarkdownDescription: "Google Cloud Storage target configuration",
+		Optional:            true,
+		Attributes: map[string]schema.Attribute{
+			"bucket": schema.StringAttribute{
+				MarkdownDescription: "Google Cloud Storage bucket name",
+				Required:            true,
+			},
+			"prefix": schema.StringAttribute{
+				MarkdownDescription: "GCS prefix",
+				Optional:            true,
+			},
+			"decimal_mapping": schema.StringAttribute{
+				MarkdownDescription: "Decimal mapping configuration. Valid values: `logical`, `legacy`",
+				Optional:            true,
+				Validators: []validator.String{
+					stringvalidator.OneOf("logical", "legacy"),
+				},
+			},
+		},
+	}
+}

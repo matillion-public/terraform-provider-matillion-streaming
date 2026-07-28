@@ -141,6 +141,14 @@ func mapTargetToClientTarget(model *models.PipelineResourceModel) (interface{}, 
 			AccountKey:     buildSecretReference(model.ABSTarget.AccountKey),
 			DecimalMapping: model.ABSTarget.DecimalMapping.ValueString(),
 		}, nil
+
+	case model.GcsTarget != nil:
+		return client.GcsTargetModel{
+			Target:         client.Target{Type: "gcs"},
+			Bucket:         model.GcsTarget.Bucket.ValueString(),
+			Prefix:         model.GcsTarget.Prefix.ValueString(),
+			DecimalMapping: model.GcsTarget.DecimalMapping.ValueString(),
+		}, nil
 	default:
 		return nil, errors.New("no target type specified")
 	}

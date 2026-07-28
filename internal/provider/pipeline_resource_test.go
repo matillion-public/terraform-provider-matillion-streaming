@@ -2,12 +2,13 @@ package provider
 
 import (
 	"fmt"
-	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
-	"github.com/hashicorp/terraform-plugin-testing/terraform"
 	"log"
 	"os"
 	"regexp"
 	"testing"
+
+	"github.com/hashicorp/terraform-plugin-testing/helper/resource"
+	"github.com/hashicorp/terraform-plugin-testing/terraform"
 )
 
 func init() {
@@ -1450,6 +1451,160 @@ resource "matillion-streaming_pipeline" "test_abs_no_optional" {
       type = "aws_secrets_manager"
       name = "test-storage-key"
     }
+  }
+}
+`, testAccGetAccountID(t), testAccGetRegion(), resourceName, testAccGetProjectID(t), testAccGetAgentID(t))
+}
+
+// TestAccStreamingPipelineResource_postgres_gcs tests PostgreSQL -> Google Cloud Storage streaming pipeline
+func TestAccStreamingPipelineResource_postgres_gcs(t *testing.T) {
+	resourceName := testAccResourceName("tf-acc-gcs-pipeline")
+
+	resource.Test(t, resource.TestCase{
+		PreCheck:                 func() { testAccPreCheck(t) },
+		ProtoV6ProviderFactories: testAccProtoV6ProviderFactories,
+		Steps: []resource.TestStep{
+			{
+				Config: testAccStreamingPipelineConfig_postgres_gcs(t, resourceName),
+				Check: resource.ComposeAggregateTestCheckFunc(
+					resource.TestCheckResourceAttr("matillion-streaming_pipeline.test_gcs", "name", resourceName),
+					resource.TestCheckResourceAttrSet("matillion-streaming_pipeline.test_gcs", "pipeline_id"),
+
+					// PostgreSQL source checks
+					resource.TestCheckResourceAttr("matillion-streaming_pipeline.test_gcs", "postgres_source.connection.host", "localhost"),
+					resource.TestCheckResourceAttr("matillion-streaming_pipeline.test_gcs", "postgres_source.connection.port", "5432"),
+
+					// Google Cloud Storage target checks
+					resource.TestCheckResourceAttr("matillion-streaming_pipeline.test_gcs", "gcs_target.bucket", "test-streaming-bucket"),
+					resource.TestCheckResourceAttr("matillion-streaming_pipeline.test_gcs", "gcs_target.prefix", "streaming/data"),
+					resource.TestCheckResourceAttr("matillion-streaming_pipeline.test_gcs", "gcs_target.decimal_mapping", "logical"),
+				),
+			},
+			{
+				ResourceName:                         "matillion-streaming_pipeline.test_gcs",
+				ImportState:                          true,
+				ImportStateVerify:                    true,
+				ImportStateIdFunc:                    testAccStreamingPipelineImportStateIdFunc("matillion-streaming_pipeline.test_gcs"),
+				ImportStateVerifyIdentifierAttribute: "pipeline_id",
+			},
+		},
+	})
+}
+
+func testAccStreamingPipelineConfig_postgres_gcs(t *testing.T, resourceName string) string {
+	return fmt.Sprintf(`
+provider "matillion-streaming" {
+  account_id     = "%s"
+  region  = "%s"
+}
+
+resource "matillion-streaming_pipeline" "test_gcs" {
+  name       = "%s"
+  project_id = "%s"
+  agent_id   = "%s"
+
+  postgres_source = {
+    connection = {
+      host     = "localhost"
+      port     = 5432
+      database = "testdb"
+      username     = "postgres"
+      password = {
+        type = "aws_secrets_manager"
+        name = "test-postgres-password"
+      }
+      jdbc_properties = {
+        "ssl" = "require"
+      }
+    }
+    tables = [
+      {
+        schema = "public"
+        table  = "events"
+      }
+    ]
+  }
+
+  gcs_target = {
+    bucket          = "test-streaming-bucket"
+    prefix          = "streaming/data"
+    decimal_mapping = "logical"
+  }
+}
+`, testAccGetAccountID(t), testAccGetRegion(), resourceName, testAccGetProjectID(t), testAccGetAgentID(t))
+}
+
+// TestAccStreamingPipelineResource_postgres_gcs_optional_values_not_present tests Google Cloud Storage without optional values
+func TestAccStreamingPipelineResource_postgres_gcs_optional_values_not_present(t *testing.T) {
+	resourceName := testAccResourceName("tf-acc-gcs-pipeline")
+
+	resource.Test(t, resource.TestCase{
+		PreCheck:                 func() { testAccPreCheck(t) },
+		ProtoV6ProviderFactories: testAccProtoV6ProviderFactories,
+		Steps: []resource.TestStep{
+			{
+				Config: testAccStreamingPipelineConfig_postgres_gcs_optional_values_not_present(t, resourceName),
+				Check: resource.ComposeAggregateTestCheckFunc(
+					resource.TestCheckResourceAttr("matillion-streaming_pipeline.test_gcs_no_optional", "name", resourceName),
+					resource.TestCheckResourceAttrSet("matillion-streaming_pipeline.test_gcs_no_optional", "pipeline_id"),
+
+					// PostgreSQL source checks
+					resource.TestCheckResourceAttr("matillion-streaming_pipeline.test_gcs_no_optional", "postgres_source.connection.host", "localhost"),
+					resource.TestCheckResourceAttr("matillion-streaming_pipeline.test_gcs_no_optional", "postgres_source.connection.port", "5432"),
+
+					// Google Cloud Storage target checks
+					resource.TestCheckResourceAttr("matillion-streaming_pipeline.test_gcs_no_optional", "gcs_target.bucket", "test-streaming-bucket"),
+					resource.TestCheckNoResourceAttr("matillion-streaming_pipeline.test_gcs_no_optional", "gcs_target.prefix"),
+					resource.TestCheckNoResourceAttr("matillion-streaming_pipeline.test_gcs_no_optional", "gcs_target.decimal_mapping"),
+				),
+			},
+			{
+				ResourceName:                         "matillion-streaming_pipeline.test_gcs_no_optional",
+				ImportState:                          true,
+				ImportStateVerify:                    true,
+				ImportStateIdFunc:                    testAccStreamingPipelineImportStateIdFunc("matillion-streaming_pipeline.test_gcs_no_optional"),
+				ImportStateVerifyIdentifierAttribute: "pipeline_id",
+			},
+		},
+	})
+}
+
+func testAccStreamingPipelineConfig_postgres_gcs_optional_values_not_present(t *testing.T, resourceName string) string {
+	return fmt.Sprintf(`
+provider "matillion-streaming" {
+  account_id     = "%s"
+  region  = "%s"
+}
+
+resource "matillion-streaming_pipeline" "test_gcs_no_optional" {
+  name       = "%s"
+  project_id = "%s"
+  agent_id   = "%s"
+
+  postgres_source = {
+    connection = {
+      host     = "localhost"
+      port     = 5432
+      database = "testdb"
+      username     = "postgres"
+      password = {
+        type = "aws_secrets_manager"
+        name = "test-postgres-password"
+      }
+      jdbc_properties = {
+        "ssl" = "require"
+      }
+    }
+    tables = [
+      {
+        schema = "public"
+        table  = "events"
+      }
+    ]
+  }
+
+  gcs_target = {
+    bucket = "test-streaming-bucket"
   }
 }
 `, testAccGetAccountID(t), testAccGetRegion(), resourceName, testAccGetProjectID(t), testAccGetAgentID(t))

@@ -17,5 +17,6 @@ type PipelineResourceModel struct {
 	SnowflakeTarget    *SnowflakeTargetModel   `tfsdk:"snowflake_target"`
 	S3Target           *S3TargetModel          `tfsdk:"s3_target"`
 	ABSTarget          *AbsTargetModel         `tfsdk:"abs_target"`
+	GcsTarget          *GcsTargetModel         `tfsdk:"gcs_target"`
 	AdvancedProperties map[string]types.String `tfsdk:"advanced_properties"`
 }
